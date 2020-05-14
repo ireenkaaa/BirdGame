@@ -1,0 +1,14 @@
+//
+// Created by irena on 14.05.2020.
+//
+
+#ifndef DONT_TOUCH_THE_SPIKES_BOARDCREATOR_H
+#define DONT_TOUCH_THE_SPIKES_BOARDCREATOR_H
+
+
+class BoardCreator {
+
+};
+
+
+#endif //DONT_TOUCH_THE_SPIKES_BOARDCREATOR_H
