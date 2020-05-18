@@ -21,6 +21,6 @@ endif(WIN32)
 
 find_package(SFML 2 COMPONENTS graphics audio REQUIRED)
 
-add_executable(BirdGame main.cpp BirdLogic/Board.h BirdLogic/Board.cpp)
+add_executable(BirdGame main.cpp BirdLogic/Board.h BirdLogic/Board.cpp BirdView/BoardCreator.cpp BirdView/BoardCreator.h Controller.cpp Controller.h BirdView/FinalScreen.h BirdView/MainMenu.h  BirdView/FinalScreen.cpp BirdView/MainMenu.cpp)
 
 target_link_libraries(BirdGame sfml-graphics sfml-audio)
