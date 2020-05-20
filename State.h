@@ -5,13 +5,15 @@
 #ifndef BIRDGAME_STATE_H
 #define BIRDGAME_STATE_H
 
+#include <SFML/Graphics.hpp>
 
 class State {
 public:
     State();
     virtual ~State();
-   virtual bool bringOnTop() =0;
-    virtual bool takeOff() =0;
+   virtual bool changeState() =0;
+   virtual void updateState(sf::Event event)=0;
+
 };
 
 

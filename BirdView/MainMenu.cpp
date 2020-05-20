@@ -8,7 +8,7 @@ MainMenu::MainMenu() {
     this->textCreator();
     this->buttonsCreator();
     this->animalsCreator();
-    states=MAIN_MENU;
+    isMenuChanged=false;
 }
 
 MainMenu::~MainMenu() {
@@ -69,9 +69,9 @@ void MainMenu::buttonChange(int x, int y) {
     if(x>=playButton.getPosition().x && x<=(playButton.getPosition().x+playButton.getSize().x) && y>=playButton.getPosition().y && y<=(playButton.getPosition().y+playButton.getSize().y))
     {
         playButton.setFillColor(sf::Color(RED));
-        states=GAME;
+        this->isMenuChanged=true;
     } else{
-        states=MAIN_MENU;
+        this->isMenuChanged=false;
     }
     for(int i=0; i<4; i++)
     {
@@ -87,9 +87,6 @@ void MainMenu::buttonChange(int x, int y) {
 
 }
 
-States MainMenu::getStates() const {
-    return states;
-}
 void MainMenu::animalsCreator() {
     if (!animalTextures[0].loadFromFile("../chicken.png"),!animalTextures[1].loadFromFile("../sheep.png"),!animalTextures[2].loadFromFile("../elephant.png"),!animalTextures[3].loadFromFile("../pig.png"))
     {
@@ -102,3 +99,17 @@ void MainMenu::animalsCreator() {
         animalSprites[i].setScale(0.2,0.2);
     }
 }
+
+bool MainMenu::changeState() {
+    return isMenuChanged;
+}
+
+void MainMenu::updateState(sf::Event event) {
+    isMenuChanged=false;
+    if (event.type == sf::Event::MouseButtonPressed) {
+        if (event.mouseButton.button == sf::Mouse::Left) {
+            this->buttonChange(event.mouseButton.x,event.mouseButton.y);
+        }
+    }
+}
+

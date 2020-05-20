@@ -6,11 +6,11 @@
 #define DONT_TOUCH_THE_SPIKES_BOARDCREATOR_H
 
 #include "../BirdLogic/Board.h"
+#include "../State.h"
 
-
-class BoardCreator : public sf::Drawable {
+class BoardCreator : public sf::Drawable, public State {
     Board &board;
-
+    bool isFirstMove;
    sf::CircleShape spikes[8];
   //  SpikeState spikesState[8];
     sf::FloatRect boxesForSpikes[8];
@@ -23,12 +23,13 @@ class BoardCreator : public sf::Drawable {
     void createTopAndDown();
     void birdGraphicUpdate();
     void spikesGraphicUpdate();
-
+    void graphicUpdate();
 public:
     BoardCreator(Board &board);
     ~BoardCreator();
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-    void graphicUpdate();
+    bool changeState() override;
+    void updateState(sf::Event event) override;
 
 
 };

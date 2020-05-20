@@ -8,7 +8,8 @@ using std::cout, std::endl;
 Controller::Controller(Board &board, BoardCreator &boardCreator, FinalScreen &finalScreen, MainMenu &mainMenu)
         : board(board), boardCreator(boardCreator), finalScreen(finalScreen), mainMenu(mainMenu) {
     this->initWindow();
-    isFirstMove=true;
+    gameStack.push(boardCreatorState);
+    gameStack.push(mainMenuState);
 }
 
 Controller::~Controller() {
@@ -41,56 +42,33 @@ void Controller::updateSFMLEvent() {
         }
     }
 
-
-
 }
 
 void Controller::update() {
     this->updateSFMLEvent();
-    if(states==MAIN_MENU)
+    gameStack.top()->updateState(event);
+    if( gameStack.top()->changeState() ==true)
     {
-        if (event.type == sf::Event::MouseButtonPressed) {
-            if (event.mouseButton.button == sf::Mouse::Left) {
-                mainMenu.buttonChange(event.mouseButton.x,event.mouseButton.y);
-                states=mainMenu.getStates();
-            }
-        }
+        gameStack.pop();
     }
-    else if(states==GAME) {
-
-
-        if (event.type == sf::Event::MouseButtonPressed) {
-            if (event.mouseButton.button == sf::Mouse::Right) {
-                board.resetClock();
-                isFirstMove=false;
-            }
-        }
-        if(isFirstMove==false) {
-
-            board.gameUpdate();
-
-        }
-        boardCreator.graphicUpdate();
-
-        if (board.getGameState() == END) {
-            states=MAIN_MENU;
+    if(gameStack.empty())
+        {
             Board newBoard;
             board = newBoard;
-            isFirstMove=true;
-
+            gameStack.push(boardCreatorState);
+            gameStack.push(mainMenuState);
         }
-    }
 }
 
 void Controller::render() {
     window->clear(sf::Color(250,250,250));
-    if(states==MAIN_MENU)
+    if(gameStack.top() == mainMenuState)
     {
         window->draw(mainMenu);
-    } else{
+    }
+    else{
         window->draw(boardCreator);
     }
-
     window->display();
 
 }

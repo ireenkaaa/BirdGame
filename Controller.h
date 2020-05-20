@@ -10,6 +10,9 @@
 #include "BirdView/FinalScreen.h"
 #include "BirdView/MainMenu.h"
 #include "BirdLogic/DefineVariables.h"
+#include <iostream>
+#include <stack>
+
 class Controller {
 public:
 
@@ -17,12 +20,13 @@ public:
     ~Controller();
     void run();
 private:
-    bool isFirstMove;
-
     BoardCreator &boardCreator;
     Board &board;
     MainMenu &mainMenu;
     FinalScreen &finalScreen;
+    State *mainMenuState=&mainMenu;
+    State *boardCreatorState=&boardCreator;
+    std::stack<State*> gameStack;
     sf::RenderWindow *window;
     sf::Event event;
     States states;

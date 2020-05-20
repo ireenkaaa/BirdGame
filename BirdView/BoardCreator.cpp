@@ -8,6 +8,7 @@ BoardCreator::BoardCreator(Board &board) : board(board) {
 this->createBird();
 this->createSpikes();
 this->createTopAndDown();
+    isFirstMove=true;
 }
 
 BoardCreator::~BoardCreator() {
@@ -79,6 +80,28 @@ void BoardCreator::spikesGraphicUpdate() {
     {
         this->spikes[i].setPosition(board.getSpikes(i).getPosition());
        this->spikes[i].setRotation(board.getSpikes(i).getRotation());
+    }
+
+}
+
+bool BoardCreator::changeState() {
+    return(board.getGameState()==END);
+}
+
+void BoardCreator::updateState(sf::Event event) {
+    if (event.type == sf::Event::MouseButtonPressed) {
+        if (event.mouseButton.button == sf::Mouse::Right) {
+            board.resetClock();
+            isFirstMove=false;
+        }
+    }
+    if(isFirstMove==false) {
+        board.gameUpdate();
+    }
+    this->graphicUpdate();
+    if(board.getGameState()==END)
+    {
+        isFirstMove==true;
     }
 
 }
