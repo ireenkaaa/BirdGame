@@ -13,7 +13,7 @@ int main() {
     Board board;
     BoardCreator boardCreator(board);
     MainMenu mainMenu;
-    FinalScreen finalScreen;
+    FinalScreen finalScreen(board);
     Controller controller(board, boardCreator, finalScreen, mainMenu);
     controller.run();
 

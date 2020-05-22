@@ -8,8 +8,10 @@ using std::cout, std::endl;
 Controller::Controller(Board &board, BoardCreator &boardCreator, FinalScreen &finalScreen, MainMenu &mainMenu)
         : board(board), boardCreator(boardCreator), finalScreen(finalScreen), mainMenu(mainMenu) {
     this->initWindow();
+    gameStack.push(finalScreenState);
     gameStack.push(boardCreatorState);
     gameStack.push(mainMenuState);
+
 }
 
 Controller::~Controller() {
@@ -36,7 +38,7 @@ void Controller::updateSFMLEvent() {
 
 
     while (this->window->pollEvent(event)) {
-        if (this->event.type == sf::Event::Closed || board.getGameState()==END ) {
+        if (this->event.type == sf::Event::Closed ) {
             window->close();
 
         }
@@ -49,25 +51,34 @@ void Controller::update() {
     gameStack.top()->updateState(event);
     if( gameStack.top()->changeState() ==true)
     {
+        finalScreen.setPointsText();
         gameStack.pop();
     }
     if(gameStack.empty())
-        {
+    {
             Board newBoard;
             board = newBoard;
+            gameStack.push(finalScreenState);
             gameStack.push(boardCreatorState);
             gameStack.push(mainMenuState);
-        }
+    }
 }
 
 void Controller::render() {
-    window->clear(sf::Color(250,250,250));
+    //window->clear(sf::Color(250,250,250));
     if(gameStack.top() == mainMenuState)
     {
+        window->clear(sf::Color(250,250,250));
         window->draw(mainMenu);
     }
-    else{
+    else if(gameStack.top()==boardCreatorState){
+        window->clear(sf::Color(250,250,250));
         window->draw(boardCreator);
+    }
+    else if(gameStack.top()==finalScreenState)
+    {
+        window->clear(sf::Color(YELLOW));
+        window->draw(finalScreen);
     }
     window->display();
 

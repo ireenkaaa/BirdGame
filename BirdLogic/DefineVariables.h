@@ -15,8 +15,6 @@
 #define SPACE_BETWEEN_SPIKES 50
 enum States{MAIN_MENU,GAME,FINAL_SCREEN};
 enum Characters {CHICKEN,SHEEP,ELEPHANT, PIG};
-#define PINK 255, 193, 198
-#define PURPLE 217, 174, 252
 #define RED 246, 55, 2
 #define ORANGE 246, 124, 7
 #define YELLOW 247, 174, 3

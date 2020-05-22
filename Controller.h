@@ -26,6 +26,7 @@ private:
     FinalScreen &finalScreen;
     State *mainMenuState=&mainMenu;
     State *boardCreatorState=&boardCreator;
+    State *finalScreenState=&finalScreen;
     std::stack<State*> gameStack;
     sf::RenderWindow *window;
     sf::Event event;
