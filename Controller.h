@@ -15,13 +15,12 @@
 
 class Controller {
 public:
-
-    Controller(Board &board, BoardCreator &boardCreator, FinalScreen &finalScreen, MainMenu &mainMenu);
+    Controller(Board &board, BoardCreator &boardCreator, MainMenu &mainMenu, FinalScreen &finalScreen);
     ~Controller();
     void run();
 private:
-    BoardCreator &boardCreator;
     Board &board;
+    BoardCreator &boardCreator;
     MainMenu &mainMenu;
     FinalScreen &finalScreen;
     State *mainMenuState=&mainMenu;
@@ -30,7 +29,6 @@ private:
     std::stack<State*> gameStack;
     sf::RenderWindow *window;
     sf::Event event;
-    States states;
     void update();
     void render();
     void initWindow();

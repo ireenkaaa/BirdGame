@@ -7,17 +7,20 @@
 
 #include "../BirdLogic/Board.h"
 #include "../State.h"
+#include "../BirdView/MainMenu.h"
 
 class BoardCreator : public sf::Drawable, public State {
     Board &board;
+    MainMenu &mainMenu;
     bool isFirstMove;
-   sf::CircleShape spikes[8];
-  //  SpikeState spikesState[8];
-    sf::FloatRect boxesForSpikes[8];
+   sf::CircleShape spikes[MAX_NUMBER_OF_SPIKES];
+    sf::FloatRect boxesForSpikes[MAX_NUMBER_OF_SPIKES];
     sf::RectangleShape top;
     sf::RectangleShape down;
     sf::Sprite birdSprite;
-    sf::Texture texture;
+    int numberOfCharacter;
+    sf::Texture textures[4];
+    sf::Texture leftTextures[4];
     void createSpikes();
     void createBird();
     void createTopAndDown();
@@ -25,7 +28,7 @@ class BoardCreator : public sf::Drawable, public State {
     void spikesGraphicUpdate();
     void graphicUpdate();
 public:
-    BoardCreator(Board &board);
+    BoardCreator(Board &board, MainMenu &mainMenu);
     ~BoardCreator();
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     bool changeState() override;

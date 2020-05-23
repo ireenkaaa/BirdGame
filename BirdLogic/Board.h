@@ -11,9 +11,9 @@ enum Direction{BEAK_RIGHT,BEAK_LEFT};
 enum GameState{RUNNING, END};
 enum SpikeState{ENABLED,DISABLED};
 class Board {
-    sf::CircleShape spikes[8];
-    SpikeState spikesState[8];
-    sf::FloatRect boxesForSpikes[8];
+    sf::CircleShape spikes[MAX_NUMBER_OF_SPIKES];
+    SpikeState spikesState[MAX_NUMBER_OF_SPIKES];
+    sf::FloatRect boxesForSpikes[MAX_NUMBER_OF_SPIKES];
     sf::RectangleShape birdSprite;
     sf::Clock clockBird;
     Direction direction;

@@ -4,11 +4,12 @@
 
 #include "BoardCreator.h"
 
-BoardCreator::BoardCreator(Board &board) : board(board) {
+BoardCreator::BoardCreator(Board &board, MainMenu &mainMenu) : board(board), mainMenu(mainMenu) {
 this->createBird();
 this->createSpikes();
 this->createTopAndDown();
     isFirstMove=true;
+    this->numberOfCharacter=0;
 }
 
 BoardCreator::~BoardCreator() {
@@ -29,7 +30,7 @@ void BoardCreator::createSpikes() {
 
          spikes[i]=sf::CircleShape (SPIKE_SIDE_SIZE, 3);
         spikes[i].rotate(-90.f);
-        spikes[i].setFillColor(sf::Color::Blue);
+        spikes[i].setFillColor(sf::Color::Black);
 
     }
     this->spikes[3].setPosition(WINDOW_WIDTH -SPIKE_SIDE_SIZE,3*(SPIKE_SIDE_SIZE+30));
@@ -37,12 +38,15 @@ void BoardCreator::createSpikes() {
 
 }
 void BoardCreator::createBird() {
-    if (!texture.loadFromFile("../chicken.png"))
+    if (!textures[0].loadFromFile("../graphics/chicken.png"),!textures[1].loadFromFile("../graphics/sheep.png"),!textures[2].loadFromFile("../graphics/elephant.png"),!textures[3].loadFromFile("../graphics/pig.png"))
     {
         abort();
     }
-
-    birdSprite.setTexture(texture);
+    if(!leftTextures[0].loadFromFile("../graphics/chicken-left.png"),!leftTextures[1].loadFromFile("../graphics/sheep-left.png"),!leftTextures[2].loadFromFile("../graphics/elephant-left.png"),!leftTextures[3].loadFromFile("../graphics/pig-left.png"))
+    {
+        abort();
+    }
+    birdSprite.setTexture(leftTextures[0]);
     birdSprite.setScale(0.13,0.13);
     birdSprite.setPosition(board.getBirdSprite().getPosition());
 }
@@ -57,14 +61,14 @@ void BoardCreator::createTopAndDown() {
 
 void BoardCreator::birdGraphicUpdate() {
     this->birdSprite.setPosition(board.getBirdSprite().getPosition());
-  /*  if(board.getDirection()==BEAK_RIGHT)
+    if(board.getDirection()==BEAK_RIGHT)
     {
-        this->birdSprite.setTexture(texture);
+        this->birdSprite.setTexture(leftTextures[numberOfCharacter]);
 
     }
     else{
-        this->birdSprite.setTexture(texture);
-    }*/
+        this->birdSprite.setTexture(textures[numberOfCharacter]);
+    }
 
 }
 
@@ -85,6 +89,10 @@ void BoardCreator::spikesGraphicUpdate() {
 }
 
 bool BoardCreator::changeState() {
+    if(board.getGameState()==END)
+    {
+        isFirstMove=true;
+    }
     return(board.getGameState()==END);
 }
 
@@ -95,13 +103,15 @@ void BoardCreator::updateState(sf::Event event) {
             isFirstMove=false;
         }
     }
+    if(isFirstMove==true)
+    {
+        this->numberOfCharacter=mainMenu.getCharacters();
+    }
     if(isFirstMove==false) {
+
         board.gameUpdate();
     }
     this->graphicUpdate();
-    if(board.getGameState()==END)
-    {
-        isFirstMove==true;
-    }
+
 
 }

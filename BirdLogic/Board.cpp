@@ -8,10 +8,10 @@
 Board::Board() {
    this->createSpikes();
     this->createBird();
-
     gameState=RUNNING;
     spikes[3].setPosition(WINDOW_WIDTH-SPIKE_SIDE_SIZE,3*(SPIKE_SIDE_SIZE+SPACE_BETWEEN_SPIKES));
     spikes[4].setPosition(WINDOW_WIDTH-SPIKE_SIDE_SIZE,4*(SPIKE_SIDE_SIZE+SPACE_BETWEEN_SPIKES));
+    this->points=0;
 
 }
 
@@ -19,7 +19,7 @@ Board::~Board() {
 }
 
 void Board::createSpikes() {
-    for(int i=0; i<8; i++) {
+    for(int i=0; i<MAX_NUMBER_OF_SPIKES; i++) {
         spikes[i] = sf::CircleShape(SPIKE_SIDE_SIZE, 3);
         spikes[i].rotate(-90.f);
         spikes[i].setFillColor(sf::Color::Blue);
@@ -85,10 +85,6 @@ void Board::collisions() {
     {
         gameState=END;
     }
-    if (getBirdPositionY()==TOP_AND_DOWN_HEIGHT || getBirdPositionY()==(WINDOW_HEIGHT-TOP_AND_DOWN_HEIGHT-40))
-    {
-        gameState=END;
-    }
 }
 GameState Board::getGameState() const {
     return gameState;
@@ -141,9 +137,10 @@ sf::CircleShape Board::getSpikes(int numberInTable) const{
 }
 
 void Board::gameUpdate() {
+
     this->wallChecker();
-    this->collisions();
     this->birdUpdate();
+    this->collisions();
 
 }
 

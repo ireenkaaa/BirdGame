@@ -56,7 +56,7 @@ void FinalScreen::textCreator() {
     yourPoints.setFillColor(sf::Color(BLUE));
     yourPoints.setCharacterSize(60);
     play.setFont(font);
-    play.setPosition(240,590);
+    play.setPosition(230,590);
     play.setFillColor(sf::Color(250,250,250));
     play.setString("PLAY");
     play.setCharacterSize(90);
@@ -107,7 +107,7 @@ void FinalScreen::setPointsText() {
 
 void FinalScreen::buttonCreator() {
     button=sf::RectangleShape(sf::Vector2f(280,130));
-    button.setFillColor(sf::Color(RED));
+    button.setFillColor(sf::Color(BLUE));
     button.setPosition(200,580);
 
 }

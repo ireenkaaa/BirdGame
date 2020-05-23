@@ -12,17 +12,15 @@
 class MainMenu : public sf::Drawable, public State{
 public:
     MainMenu();
-
     ~MainMenu();
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-    //States getStates() const;
     bool changeState() override;
     void updateState(sf::Event event) override;
+    int getCharacters() const;
 
 private:
     sf::RectangleShape playButton;
-    States states;
-    Characters characters;
+    int characters;
     sf::Font font;
     sf::Text gameName;
     sf::Text chooseCharacter;

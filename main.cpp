@@ -11,10 +11,10 @@ int main() {
     srand (time(NULL));
 
     Board board;
-    BoardCreator boardCreator(board);
     MainMenu mainMenu;
+    BoardCreator boardCreator(board,mainMenu);
     FinalScreen finalScreen(board);
-    Controller controller(board, boardCreator, finalScreen, mainMenu);
+    Controller controller(board, boardCreator, mainMenu, finalScreen);
     controller.run();
 
     return 0;

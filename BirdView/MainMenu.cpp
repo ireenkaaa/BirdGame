@@ -9,6 +9,7 @@ MainMenu::MainMenu() {
     this->buttonsCreator();
     this->animalsCreator();
     isMenuChanged=false;
+    this->characters=0;
 }
 
 MainMenu::~MainMenu() {
@@ -25,6 +26,7 @@ void MainMenu::buttonsCreator() {
         characterButtons[i].setPosition(i*(150),500);
         characterButtons[i].move(70,0);
     }
+    characterButtons[0].setFillColor(sf::Color(RED));
 
 }
 
@@ -77,7 +79,7 @@ void MainMenu::buttonChange(int x, int y) {
     {
         if(x>=characterButtons[i].getPosition().x && x<=(characterButtons[i].getPosition().x+characterButtons[i].getSize().x) && y>=characterButtons[i].getPosition().y && y<=(characterButtons[i].getPosition().y+characterButtons[i].getSize().y))
         {
-            characters = static_cast<Characters>(i);
+            characters = i;
             characterButtons[i].setFillColor(sf::Color(RED));
 
         } else{
@@ -88,7 +90,7 @@ void MainMenu::buttonChange(int x, int y) {
 }
 
 void MainMenu::animalsCreator() {
-    if (!animalTextures[0].loadFromFile("../chicken.png"),!animalTextures[1].loadFromFile("../sheep.png"),!animalTextures[2].loadFromFile("../elephant.png"),!animalTextures[3].loadFromFile("../pig.png"))
+    if (!animalTextures[0].loadFromFile("../graphics/chicken.png"),!animalTextures[1].loadFromFile("../graphics/sheep.png"),!animalTextures[2].loadFromFile("../graphics/elephant.png"),!animalTextures[3].loadFromFile("../graphics/pig.png"))
     {
         abort();
     }
@@ -111,5 +113,9 @@ void MainMenu::updateState(sf::Event event) {
             this->buttonChange(event.mouseButton.x,event.mouseButton.y);
         }
     }
+}
+
+int MainMenu::getCharacters() const {
+    return characters;
 }
 
