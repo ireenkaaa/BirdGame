@@ -7,28 +7,41 @@
 BoardCreator::BoardCreator(Board &board, MainMenu &mainMenu) : board(board), mainMenu(mainMenu) {
 this->createBird();
 this->createSpikes();
-this->createTopAndDown();
-    isFirstMove=true;
-    this->numberOfCharacter=0;
+isFirstMove=true;
+this->numberOfCharacter=0;
+    if (!bottomSpikesTexture.loadFromFile("../graphics/kolce-down.png") || !topSpikesTexture.loadFromFile("../graphics/kolce-top.png") || !font.loadFromFile("../font.ttf"))
+    {
+        abort();
+    }
+    bottomSpikes.setTexture(bottomSpikesTexture);
+    bottomSpikes.setPosition(0,WINDOW_HEIGHT-130);
+    topSpikes.setTexture(topSpikesTexture);
+    topSpikes.setPosition(0,0);
+    pointsText.setFont(font);
+    pointsText.setFillColor(sf::Color(BLUE,150));
+    pointsText.setCharacterSize(300);
+    pointsText.setPosition(250,200);
+    points=board.getPoints();
 }
 
-BoardCreator::~BoardCreator() {
-
-}
+BoardCreator::~BoardCreator() {}
 
 void BoardCreator::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     for(int i=0; i<MAX_NUMBER_OF_SPIKES; i++)
     {
         target.draw(spikes[i],states);
     }
+    target.draw(pointsText);
     target.draw(birdSprite,states);
-    target.draw(top,states);
-    target.draw(down,states);
+    target.draw(bottomSpikes,states);
+    target.draw(topSpikes,states);
+
+
 }
 void BoardCreator::createSpikes() {
     for(int i=0; i<MAX_NUMBER_OF_SPIKES; i++) {
 
-         spikes[i]=sf::CircleShape (SPIKE_SIDE_SIZE, 3);
+        spikes[i]=sf::CircleShape (SPIKE_SIDE_SIZE, 3);
         spikes[i].rotate(-90.f);
         spikes[i].setFillColor(sf::Color::Black);
 
@@ -49,14 +62,6 @@ void BoardCreator::createBird() {
     birdSprite.setTexture(leftTextures[0]);
     birdSprite.setScale(0.13,0.13);
     birdSprite.setPosition(board.getBirdSprite().getPosition());
-}
-void BoardCreator::createTopAndDown() {
-
-    down=sf::RectangleShape(sf::Vector2f (WINDOW_WIDTH ,40));
-    this->down.setPosition(0,WINDOW_HEIGHT-40);
-    this->down.setFillColor(sf::Color::Green);
-    top=down;
-    this->top.setPosition(0,0);
 }
 
 void BoardCreator::birdGraphicUpdate() {
@@ -85,6 +90,8 @@ void BoardCreator::spikesGraphicUpdate() {
         this->spikes[i].setPosition(board.getSpikes(i).getPosition());
        this->spikes[i].setRotation(board.getSpikes(i).getRotation());
     }
+    points=board.getPoints();
+    pointsText.setString(std::to_string(points));
 
 }
 

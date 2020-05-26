@@ -7,7 +7,7 @@
 #define SPIKE_SIDE_SIZE 40
 #define WINDOW_WIDTH 700
 #define WINDOW_HEIGHT 800
-#define GRAVITY 2.7
+#define GRAVITY 2.9
 #define ALPHA (70*2*M_PI/360)
 #define VELOCITY 1.2
 #define MAX_NUMBER_OF_SPIKES 6

@@ -19,7 +19,6 @@ class FinalScreen: public sf::Drawable,public State {
     sf::Text play;
     sf::Font font;
     sf::RectangleShape button;
-    int bestScore;
     void textCreator();
     void setPoints();
     void usingFile();
@@ -27,8 +26,8 @@ class FinalScreen: public sf::Drawable,public State {
     void buttonChange(int x,int y);
     bool isStateChanged;
 public:
-    FinalScreen(Board &board);
-    virtual ~FinalScreen();
+    explicit FinalScreen(Board &board);
+    ~FinalScreen();
     bool changeState() override;
     void updateState(sf::Event event) override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

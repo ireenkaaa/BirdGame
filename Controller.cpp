@@ -65,7 +65,7 @@ void Controller::update() {
 }
 
 void Controller::render() {
-    //window->clear(sf::Color(250,250,250));
+
     if(gameStack.top() == mainMenuState)
     {
         window->clear(sf::Color(250,250,250));

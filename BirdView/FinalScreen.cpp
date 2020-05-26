@@ -42,10 +42,10 @@ void FinalScreen::textCreator() {
     scoreText.setFont(font);
     scoreText.setPosition(190,210);
     scoreText.setFillColor(sf::Color(DARK_BLUE));
-    scoreText.setString("YOUR SCORE\n"
+    scoreText.setString("BEST SCORE\n"
                         "\n"
                         "\n"
-                        "BEST SCORE");
+                        "YOUR SCORE");
     scoreText.setCharacterSize(50);
     bestPoints.setFont(font);
     bestPoints.setPosition(200,280);
@@ -81,6 +81,7 @@ void FinalScreen::updateState(sf::Event event) {
 void FinalScreen::usingFile() {
     std::ifstream ifStream("../results.txt");
     std::string line;
+    int bestScore=0;
     if(ifStream)
     {
         getline(ifStream, line);
@@ -94,8 +95,11 @@ void FinalScreen::usingFile() {
 
        }
        ofStream.close();
+       bestScore=board.getPoints();
    }
    std::string temp="POINTS:"+(std::to_string(board.getPoints()));
+    yourPoints.setString(temp);
+  temp="POINTS:"+(std::to_string(bestScore));
     bestPoints.setString(temp);
 }
 
