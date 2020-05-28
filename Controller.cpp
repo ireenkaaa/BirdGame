@@ -21,8 +21,8 @@ Controller::~Controller() {
 void Controller::initWindow() {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    window= new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Fat Bird",sf::Style::Default, settings);
-    //window->setFramerateLimit(110);
+    window= new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Spikes! Spikes!",sf::Style::Default, settings);
+    window->setFramerateLimit(90);
 
 }
 

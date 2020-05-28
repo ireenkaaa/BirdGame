@@ -81,9 +81,9 @@ void Board::collisions() {
             }
         }
     }
-    if (getBirdPositionY()==TOP_AND_DOWN_HEIGHT || getBirdPositionY()==(WINDOW_HEIGHT-TOP_AND_DOWN_HEIGHT-50))
-    {
-        gameState=END;
+
+    if (getBirdPositionY() <= TOP_AND_DOWN_HEIGHT || getBirdPositionY() >= (WINDOW_HEIGHT - TOP_AND_DOWN_HEIGHT)) {
+        gameState = END;
     }
 }
 GameState Board::getGameState() const {
@@ -117,7 +117,7 @@ void Board::showSpikes() {
 }
 
 void Board::wallChecker() {
-    if(getBirdPositionX()==650 || getBirdPositionX()==0 )
+    if (getBirdPositionX() < 0 || getBirdPositionX() > 650)
     {
         this->changeDirection();
         this->showSpikes();

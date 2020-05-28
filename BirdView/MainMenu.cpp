@@ -68,25 +68,21 @@ void MainMenu::textCreator() {
 }
 
 void MainMenu::buttonChange(int x, int y) {
-    if(x>=playButton.getPosition().x && x<=(playButton.getPosition().x+playButton.getSize().x) && y>=playButton.getPosition().y && y<=(playButton.getPosition().y+playButton.getSize().y))
-    {
+
+    if (playButton.getGlobalBounds().contains(x, y)) {
         playButton.setFillColor(sf::Color(RED));
-        this->isMenuChanged=true;
-    } else{
-        this->isMenuChanged=false;
+        this->isMenuChanged = true;
+    } else {
+        this->isMenuChanged = false;
     }
-    for(int i=0; i<4; i++)
-    {
-        if(x>=characterButtons[i].getPosition().x && x<=(characterButtons[i].getPosition().x+characterButtons[i].getSize().x) && y>=characterButtons[i].getPosition().y && y<=(characterButtons[i].getPosition().y+characterButtons[i].getSize().y))
-        {
+    for (int i = 0; i < 4; i++) {
+        if (characterButtons[i].getGlobalBounds().contains(x, y)) {
             characters = i;
             characterButtons[i].setFillColor(sf::Color(RED));
-
-        } else{
+        } else {
             characterButtons[i].setFillColor(sf::Color(ORANGE));
         }
     }
-
 }
 
 void MainMenu::animalsCreator() {
